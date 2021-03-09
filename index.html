@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<link rel="stylesheet" href="css/main.css" />
+<script type='text/javascript' src='js/main.js' defer></script>
+</head>
+<body>
+    <!-- 基本 -->
+  <!-- <div id="app">
+    <p>
+    マスタッシュ構文(テキストコンテンツのみに使用可能)
+    {{ message }}
+    </p>　
+    <P>
+    {{ count }}
+    </P>
+    <p>
+    {{ user.prefecture }}
+    </p>
+    <p>
+    {{ colors[1] }}
+    </p> -->
+
+    <!-- ディレクティブ v- の使用方法 -->
+
+    <!-- v-bind 属性へのデータバインディング（一方向） -->
+    <!-- <input type="text" v-bind:value="message"> -->
+  <!--  v-if 条件分岐 DOM要素自体が無くなるため注意 -->
+  <!-- <p v-if="toggle">
+    Hello
+  </p> -->
+  <!-- v-show 条件分岐 要素の表示を切り替える v-ifとは違いcssのdisplayプロパティをon/offしている -->
+  <!-- <p v-show="toggle">
+    Hello v-show
+  </p> -->
+    <!-- v-for 単数形 in 複数形の配列 -->
+    <!-- <ol>
+      <li v-for="color in colors">{{ color }}</li>
+    </ol> -->
+    <!-- v-for オブジェクトの描画方法 keyとvalueを出力するときは(第一引数がvalue, key)の順番 -->
+    <!-- <ol>
+      <li v-for="value in user">{{ value }}</li>
+    </ol>
+    <ol>
+      <li v-for="(value, key) in user">{{ key }} : {{ value }}</li>
+    </ol>  -->
+    <!-- v-on イベントハンドラ v-on:clickでクリックしたときに次の関数を実行するという意味-->
+    <!-- <button v-on:click="onclick">
+      Click!
+    </button>
+    <p>{{ now }}</p> -->
+    <!-- v-model 双方向データバインディング -->
+    <!-- <P>
+      <input type="text" v-model="message">
+    </P>
+    <P>
+      <input type="text" v-model="message">
+    </P>
+    $dateはdataオプションの内容を全て取得する
+    <pre>{{ $data.message }}</pre> -->
+    <!-- component -->
+  <!--   <hello-component></hello-component>
+    <hello-component></hello-component>
+
+    </div> -->
+
+
+  <!-- 演習 -->
+  <div id="app">
+    <P>
+      {{ message }}
+    </P>
+    <p>
+      <a v-if="toggle" v-bind:href="url">URL</a>
+    </p>
+    <ol>
+      <li v-for="language in languages">{{ language }}</li>
+    </ol>
+    <button v-on:click="onclick">
+      Click!
+    </button>
+    <p>
+      <input type="text" v-model="message">
+    </p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>

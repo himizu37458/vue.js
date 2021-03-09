@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<link rel="stylesheet" href="css/todolist.css" />
+<script type='text/javascript' src='js/todolist.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <h2>TODO List</h2>
+  <!--   v-on:submit.preventはsubmitのリロードを防ぐ記述 -->
+    <form v-on:submit.prevent>
+      <!-- newItemプロパティをデータバインディング -->
+      <input type="text" v-model="newItem">
+      <button v-on:click="addItem">Add</button>
+    </form>
+    <ul>
+      <!-- todos配列をv-forでリスト化、todo.itemで値のnewItemを取得している -->
+      <li v-for="(todo, index) in todos">
+        <!-- v-modelで真偽値を切り替え -->
+        <input type="checkbox" v-model="todo.isDone">
+        <!-- v-bindでclass付与、プロパティ値の真偽値がtrueのとき、v-bind:classで指定したhtml要素にクラス名が付与。逆に真偽値がfalseの場合はクラス名は付与されない。 v-bind:classs="{クラス名: プロパティ値}" -->
+        <span v-bind:class="{done: todo.isDone}">{{ todo.item }}</span>
+        <button v-on:click="deleteItem(index)">Delete</button>
+      </li>
+    </ul>
+    <pre>{{ $data }}</pre>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
