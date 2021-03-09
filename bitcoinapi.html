@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/bitcoinapi.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Bitcoin Price</h2>
+    <!-- errorがあった時はこのsection -->
+    <section v-if="hasError">
+      Error!
+    </section>
+    <section v-else>
+      <!-- loading中はこのsection -->
+      <div v-if="loading">
+        Loading...
+      </div>
+      <div v-else>
+        <!-- v-cloakディレクティブでリロード時に一瞬マスタッシュが見えてしまうのを防ぐ = コンパイル完了後にページを表示することで、不完全なWebページをユーザーに見せないようにする(cssに記述が必要) -->
+        <ul v-cloak>
+          <!-- filtersオプションのメソッドをマスタッシュ構文で使用する時は、| でつなげる -->
+          <li v-for="(rate, currency) in bpi">{{ currency }} : {{ rate.rate_float | currencyDecimal }}</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <!-- axiosライブラリの読み込み -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+</body>
+</html>
