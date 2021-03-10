@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/computed.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 算出プロパティの場合 -->
+    <p>
+      {{ reversedMessage }}
+    </p>
+    <!-- メソッドの場合 -->
+    <p>
+      {{ reversedMessageMethods() }}
+    </p>
+    <p>
+      base Price <input type="text" v-model="basePrice">
+    </p>
+    <p>
+      tax included Price <input type="text" v-model="taxIncludedPrice">
+    </p>
+    <ol>
+      <li>{{ randomNumberMethods() }}</li>
+      <li>{{ randomNumberMethods() }}</li>
+      <li>{{ randomNumberMethods() }}</li>
+    </ol>
+    <ol>
+      <li>{{ randomNumberComputed }}</li>
+      <li>{{ randomNumberComputed }}</li>
+      <li>{{ randomNumberComputed }}</li>
+    </ol>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
