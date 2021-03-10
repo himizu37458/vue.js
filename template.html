@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/template.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- v-once 初回だけテンプレートを評価し、それ以降は性的なコンテンツとして扱う。 -->
+    <P v-once>{{ message }}</P>
+    <button v-on:click="clickhandler">Click!</button>
+    <!-- v-pre 付与している要素と全ての子要素のコンパイルをスキップする
+    どんな時に使用するのか→ユースケース
+    ・生のマスタッシュタグを表示したい時
+    ・セキュリティ対策のxss対策
+    ・ディレクティブのない大量のノードをスキップすることでコンパイルのスピードをあげる -->
+    <p v-pre>{{ message }}</p>
+    <!-- v-html タグをテキストではなくhtmlとして評価する v-html="プロパティ"の形で使用する
+    サービスを利用するユーザー入力したコンテンツには絶対に使用しない -->
+    <p>{{ colorMessage }}</p>
+    <p v-html="colorMessage"></p>
+    <!-- v-cloak インスタンスの作成が完了するまで非表示にする(cssの指定で)→作成が終わると自動でv-cloakがはずれる -->
+    <p v-cloak>{{ message }}</p>
+    <!-- v-text マスタッシュ構文ではなくディレクティブで表示する方法→統一されて入ればどちらでも良い -->
+    <p v-text="message"></p>
+    <!-- v-bindディレクティブは省略できる -->
+    <a v-bind:href="url" target="_blank">link1</a>
+    <a :href="url" target="_blank">link2</a>
+
+    <!-- バインディング式　マスタッシュ構文内のテキストのこと -->
+    <!-- マスタッシュ構文内はjavascript式を利用することができる -->
+    <p>{{ number + 1}}</p>
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <!-- ?でtrueならYes、falseならNoを表示 -->
+    <p>{{ ok ? 'Yes' : 'No' }}</p>
+    <!-- 単一式しか評価されないため、変数代入や条件式などは使用できない
+    イコールの片側しか使用できないと考える！条件式は?を使用する！ -->
+    <!-- <p>{{ var x = 1}}</p>　エラー -->
+    <!-- <p>{{ if(ok) { return message }}}</p>　エラー -->
+    <p>{{ ok ? message : 'false'}}</p>
+    <!-- マスタッシュ構文内はフィルタ(ローカル/グローバル)を利用することができる -->
+    <!-- 式の終わりに任意のフィルタを追加できる 式 | フィルタ の形で使用できる-->
+    <p>{{ price | priceFormat }}</p>
+    <input type="text" v-bind:value="price | priceFormat">
+    <!-- フィルタは複数連結できる -->
+    <p>{{ jpyPrice | toUSD | priceFormat }}</p>
+    <!-- 引数を複数指定しているフィルタの使用方法 -->
+    <p>{{ text | readMore(15, '***') }}</p>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
