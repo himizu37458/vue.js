@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/v-if.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 真偽値の場合 -->
+    <p v-if="toggle">YES</p>
+    <p v-else>NO</p>
+    <!-- v-else-if -->
+    <p v-if="color === 'red'">Stop</p>
+    <p v-else-if="color === 'yellow'">Caution</p>
+    <p v-else-if="color === 'blue'">Go</p>
+    <p v-else>Not red/yellow/blue</p>
+    <!-- v-show displayCSSの切り替えによるもの -->
+    <p v-show="toggle">Hello Vue.js!</p>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
