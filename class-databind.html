@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<link rel="stylesheet" href="css/class-databind.css" />
+<script type='text/javascript' src='js/class-databind.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- クラスを動的に制御 v-bind:class="{クラス名: プロパティ}" trueの時にクラス付与 複数のクラスを付与する場合はカンマ区切り クラス名に-がある場合は''で囲む -->
+    <!-- プレーンなクラス毒性（普通のやり方）とも共存できる -->
+    <p>Hello <span class="bg-gray text-blue" v-bind:class="{large: isLarge, 'text-danger': haserror}">Vue.js!</span></p>
+    <!-- 配列構文でのクラス付与の書き方 配列の値を取得してhtmlに表示しているだけ -->
+    <p>Hello <span v-bind:class="[largeClass, dangerClass]">Vue.js!</span></p>
+    <!-- オブジェクトを使用してまとめてクラスを適用できる -->
+    <p>Hello <span v-bind:class="classObject">Vue.js!</span></p>
+    <!-- 条件つきリストでクラスを切り替えたい場合も三項演算子を使ってできる（if文の省略形みたいなもの） 常に適用させたい場合は上と同じで配列の形にすればOK -->
+    <p>Hello <span v-bind:class="[isLarge ? largeClass : '', dangerClass]">Vue.js!</span></p>
+    <!-- インラインスタイルでもデータバインディングできる -->
+    <p>Hello <span v-bind:style="{color: color, 'font-size': fontSize + 'px'}">Vue.js!</span></p>
+    <!-- インラインスタイルのデータバインディングにオブジェクトデータを渡すこともできる -->
+    <p>Hello <span v-bind:style="styleObject">Vue.js!</span></p>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
