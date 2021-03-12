@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/form-bind.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- v-model利用時は属性は指定しても無視される -->
+    <p>{{ message }}</p>
+    <input type="text" v-model="message" value="sample">
+    <p>{{ $data }}</p>
+    <!-- textareaではマスタッシュ構文を使ったデータバインディングは使えない 同様v-modelを使用する -->
+    <!-- <textarea>{{ message }}</textarea> 使用できない -->
+    <textarea v-model="message"></textarea>
+    <!-- 単体のチェックボックをデータバインディングする 型はbool値 -->
+    <p>
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">{{ checked }}</label>
+    </p>
+    <!-- 複数のチェックボックスをデータバインディングする 型は配列 -->
+    <p>
+      <input type="checkbox" id="red" value="Red" v-model="colors">
+      <label for="red">Red</label>
+      <input type="checkbox" id="green" value="Green" v-model="colors">
+      <label for="green">Green</label>
+      <input type="checkbox" id="blue" value="Blue" v-model="colors">
+      <label for="blue">Blue</label>
+      <pre>{{ $data }}</pre>
+    </p>
+    <!-- ラジオボタンをデータバインディングする 型は文字列 -->
+    <p>
+      <input type="radio" id="red" value="Red" v-model="radioColor">
+      <label for="red">Red</label>
+      <input type="radio" id="green" value="Green" v-model="radioColor">
+      <label for="green">Green</label>
+      <input type="radio" id="blue" value="Blue" v-model="radioColor">
+      <label for="blue">Blue</label>
+      <p>{{ radioColor }}</p>
+    </p>
+    <!-- セレクトボックス単体をデータバインディングする 型は文字列 -->
+    <p>
+      <select v-model="selected">
+        <option disabled value="">Please select one</option>
+        <option>Red</option>
+        <option>Green</option>
+        <option>Blue</option>
+      </select>
+      <p>{{ selected }}</p>
+    </p>
+    <!-- セレクトボックス複数をデータバインディングする 型は配列 -->
+    <p>
+      <select v-model="colorSelect" multiple>
+        <option disabled value="">Please select</option>
+        <option>Red</option>
+        <option>Green</option>
+        <option>Blue</option>
+      </select>
+      <p>{{ colorSelect }}</p>
+    </p>
+
+    <!-- データバインディングの修飾子の種類 -->
+    <!-- .lazy バインドのタイミングを遅延させる tabキー/enterキーでバインドされるようになる -->
+    <p>
+      <input type="text" v-model.lazy="message">
+      <p>{{ message }}</p>
+    </p>
+    <!-- .trim 入力値から前後の空白(半角/全角)を削除してデータ代入 -->
+    <p>
+      <input type="text" v-model.trim="message">
+    </p>
+    <p>
+      <input type="text" v-model="message">
+    </p>
+    <p>{{ $data }}</p>
+    <!-- .number 入力値を数値型に型変換してからデータに代入 -->
+    <p>
+      <!-- inputはtypeをnumberにしても文字列で返すためv-model.numberで数値型にする必要がある -->
+      <input type="number" v-model.number="age">
+      <p>{{ age + 10 }}</p>
+    </p>
+
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
