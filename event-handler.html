@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/event-handler.js' defer></script>
+</head>
+<body>
+  <div id="app">
+
+    <p>{{ counter }}</p>
+    <!-- インラインメソッドハンドラ タグ内に直接処理を記述 -->
+    <button v-on:click="counter++">Click!</button>
+    <!-- メソッドイベントハンドラ　メソッドを別で定義して呼び出す 引数がない場合は()か不要-->
+    <button v-on:click="clickHandler">methods Click!</button>
+
+    <!-- イベントハンドラに引数を渡して表示 -->
+    <!-- <p>{{ message }}</p>
+    <button v-on:click="addMessage('Vue.js!')">addMessage</button> -->
+    <!-- $eventの使用方法 明示的に第一引数に渡すことでイベントオブジェクトを参照できる -->
+    <p>{{ message }}</p>
+    <button v-on:click="addMessage($event, 'Vue.js!')">addMessage</button>
+
+    <!-- イベント修飾子　クリックなどのDOMイベントの振る舞いを変更する修飾子 -->
+    <!-- イベント修飾子の例 .once イベントハンドラを一回だけ実行する -->
+    <p>{{ nowTime }}</p>
+    <button v-on:click.once="addTime">now</button>
+
+    <!-- キー修飾子　キーイベントをフックに特定のキーが押された時にのみ、特定のイベントハンドラを呼び出せる
+    v-on:keyup.キーの種類 キーの種類はキーコードという数字または文字 　キーの種類は複数設定できる（ドットでつなげる）-->
+    <p>
+      <input type="text" v-model="escMessage" v-on:keyup.esc.space.control="clear">
+    </p>
+    <p>{{ escMessage }}</p>
+    <!-- システム修飾子 特定のキーを押しながらを設定できる .ctrl、ctrl+cでクリアされる場合 67はcキーのキーコード -->
+    <p>
+      <input type="text" v-model="escMessage" v-on:keyup.ctrl.67="clear">
+    </p>
+    <!-- システム修飾子 .shiftを押しながらの場合 shiftを押しながらクリックするとアラートを表示 -->
+    <div v-on:click.shift='alertClick'>Click me!</div>
+
+    <!-- v-on:は@で省略できる -->
+    <button @click="alertClick">click me!</button>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
