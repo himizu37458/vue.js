@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<link rel="stylesheet" href="css/transition.css" />
+<script type='text/javascript' src='js/transition.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- show=!showで真偽値の切り替え -->
+    <button v-on:click="show=!show">Change</button>
+    <!-- transitionタグで囲むことでアニメーションをかける用のクラスが追加される（子要素に特定のクラスが付与される） 今回だとp要素に表示される時はv-enter-active v-enter-toクラスが付与される 非表示される時にv-leave-active v-leave-toが付与される そのクラスに対してcssを記述する -->
+    <transition>
+      <p v-show="show">Hello transition!</p>
+    </transition>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
