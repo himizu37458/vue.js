@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue.js学習</title>
+<!-- <link rel="stylesheet" href="css/main.css" /> -->
+<script type='text/javascript' src='js/component.js' defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- グローバル登録したほう -->
+    <hello-g-component></hello-g-component>
+    <!-- ローカル登録したほう -->
+    <hello-l-component></hello-l-component>
+    <!-- クリック回数カウントコンポーネント 別のインスタンスのため連動はしない -->
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</body>
+</html>
