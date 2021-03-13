@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+
+<!-- VueCLIとは
+vue.jsを使ったアプリケーション開発をサポートする公式のコマンドラインインターフェース
+node.jsとは
+サーバ側で動作するプログラムをjsで書くために使う技術
+npmとは
+node.jsのモジュールを管理するツール -->
+
+<!-- 単一ファイルコンポーネントとは
+vue.jsのコンポーネントを単独のファイルとして作成する機能
+拡張子は.vue
+テンプレート,css,jsを一つのファイルとして作成
+再利用性が高く、保守性が高いコンポーネントを実現できる -->
+<!-- 単一ファイルコンポーネントはvue.js独自の仕組みのため、chromeなどのブラウザで実行するには動作可能に変換する（ビルド）必要がある
+例 webpack + vue-loaderなど -->
