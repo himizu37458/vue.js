@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue Router 学習</title>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/top">Go to Top</router-link>
+    <!-- urlパラメーターを利用してuserIdに123を渡す -->
+    <router-link to="/users/123">Go to User</router-link>
+    <router-view></router-view>
+  </div>
+
+<script src="https://unpkg.com/vue@2.6.10"></script>
+<script src="https://unpkg.com/vue-router@3.0.6"></script>
+<script>
+  const Top = { template: '<div>top</div>' }
+  // マスタッシュを利用してuserIdを描画する記述
+  const User = { template: '<div>user {{ $route.params.userId }}</div>' }
+
+  const router = new VueRouter ({
+    routes: [
+      {
+        path: '/top',
+        component: Top
+      },
+      {
+        // userIdという名前でurlパラメーターを利用する
+        path: '/users/:userId',
+        component: User
+      }
+    ]
+  })
+
+  const app = new Vue ({
+    router
+  }).$mount('#app')
+
+</script>
+</body>
+</html>

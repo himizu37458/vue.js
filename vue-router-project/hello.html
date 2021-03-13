@@ -1,0 +1,68 @@
+<!-- Vue Routerとは
+シングルアプリケーション（SPA）を構築するためのルーティングライブラリ
+シングルページアプリケーション（SPA）とは
+初めに一つのhtmlをロードし、以降はユーザーの操作に応じてAjaxでサーバーがらデータを取得して、動的にページを更新するwebアプリケーション
+ルーティングとは
+urlと表示するページを紐つける -->
+
+<!-- SPAではブラウザの戻る・進むボタンを押したときの履歴操作について、クライアント側で管理する必要があります。
+履歴管理を行う方法として、URL Hashを使った方法とHTML 5 History APIを使った方法があります。
+Vue Routerでは、デフォルトでURL Hashを使った履歴管理が行われます。
+URLの末尾に#が付与されて、ルーティングのパスを管理します。 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vue Router 学習</title>
+</head>
+<body>
+  <div id="app">
+    <!-- router-linkコンポーネントでページ遷移ができる
+    toプロパティで遷移先を指定　描画はaタグとなる -->
+    <router-link to="/top">Go to Top</router-link>
+    <router-link to="/users">Go to User</router-link>
+    <!-- router-viewコンポーネント内にrouterで定義したコンテンツが描画される！ -->
+    <router-view></router-view>
+  </div>
+
+<!-- vue.js読み込み -->
+<script src="https://unpkg.com/vue@2.6.10"></script>
+<!-- vue-router読み込み -->
+<script src="https://unpkg.com/vue-router@3.0.6"></script>
+<script>
+  // ページごとのコンテンツの作成
+  const Top = { template: '<div>top</div>' }
+  const User = { template: '<div>user</div>' }
+
+  // VueRouterインスタンスの作成
+  const router = new VueRouter ({
+    // routesオプションにルートの定義を記述
+    // 配列[]で複数のルートを定義できる
+    // アクセスするpathとコンポーネントを{}で記述する
+    routes: [
+      {
+        // pathは/が絶対必要！！
+        path: '/top',
+        component: Top
+      },
+      {
+        path: '/users',
+        component: User
+      }
+    ]
+  })
+
+  // Vueインスタンスの作成
+  const app = new Vue ({
+    // VueRouterインスタンスをVueインスタンスに渡す
+    // 短縮表記が使えて　router のみでも可
+    // router: router
+    router
+    // id="app"をマウント
+  }).$mount('#app')
+
+</script>
+</body>
+</html>
