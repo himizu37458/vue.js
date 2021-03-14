@@ -1,11 +1,11 @@
 <template>
-<div class="signup">
-    <h2>Sign up</h2>
+<div class="signin">
+    <h2>Sign in</h2>
     <input type="text" placeholder="Username" v-model="username">
     <input type="password" placeholder="Password" v-model="password">
-    <button @click="signUp">Register</button>
-    <p>Do you have an account?
-      <router-link to="/signin">sign in now!!</router-link>
+    <button @click="signIn">Signin</button>
+    <p>You don't have an account?
+      <router-link to="/signup">create account now!!</router-link>
     </p>
   </div>
 </template>
@@ -14,7 +14,7 @@
 import firebase from 'firebase'
 
 export default {
-  name: 'Signup',
+  name: 'Signin',
   data () {
     return {
       username: '',
@@ -22,17 +22,17 @@ export default {
     }
   },
   methods: {
-    // 入力された情報をFirebase側に登録する処理
-    signUp: function () {
-      firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
-      .then(user => {
-        alert('Create account: ', user.email)
-          this.$router.push('/signin')
-
-      })
-      .catch(error => {
-        alert(error.message)
-      })
+    // 入力された情報をFirebase側で認証する処理
+    signIn: function () {
+      firebase.auth().signInWithEmailAndPassword(this.username, this.password).then(
+        user => {
+          alert('Success!')
+          this.$router.push('/')
+        },
+        err => {
+          alert(err.message)
+        }
+      )
     }
   }
 }
@@ -53,7 +53,7 @@ li {
 a {
   color: #42b983;
 }
-.signup {
+.signin {
   margin-top: 20px;
 
   display: flex;
