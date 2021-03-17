@@ -79,7 +79,7 @@ export default {
 .location {
   color: #48b883;
   font-family: 'Teko', sans-serif;
-  font-size: 5rem;
+  font-size: 2rem;
   letter-spacing: .05em;
   line-height: 1;
 }
@@ -87,7 +87,7 @@ export default {
   text-align: right;
   color: #fff;
   font-family: 'Teko', sans-serif;
-  font-size: 4rem;
+  font-size: 2rem;
   letter-spacing: .1em;
   margin: .0em 0;
   line-height: 1;
