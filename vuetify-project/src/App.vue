@@ -37,7 +37,7 @@
     <!-- ヘッダー -->
     <v-app-bar color="primary" dark app clipped-left>
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Vuetify</v-toolbar-title>
+      <v-toolbar-title to="/" v-if="$vuetify.breakpoint.mdOnly">Vuetify</v-toolbar-title>
       <v-spacer></v-spacer>
       <!-- ドロップダウンメニュー -->
       <v-toolbar-items>
