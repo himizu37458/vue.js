@@ -23,7 +23,13 @@
           @dragstart.self="dragCategory(category)"
           @dragover.prevent="dragOverCategory(category)"
           >
-          <div class="font-bold">{{ category.name }}</div>
+          <div class="font-bold">
+            <category-name-update
+              :category="category"
+              @category-name-updated="categoryNameUpdate"
+              >
+            </category-name-update>
+          </div>
           <div
             v-for="(task, index) in category.tasks"
             :key="index"
@@ -217,7 +223,60 @@ const app = Vue.createApp ({
     closeCategoryInput() {
       this.category_name = ''
       this.show_category_input = false
+    },
+    // 子コンポーネントから発火したcategory-name-updatedイベントを受け取るとcategoryNameUpdateメソッドが実行
+    categoryNameUpdate(category_name, category_id) {
+      let update_category = this.categories.find(cat => cat.id === category_id)
+      update_category.name = category_name
     }
   }
-}).mount('#app')
+})
+
+// カテゴリー名変更のコンポーネント定義
+app.component('category-name-update', {
+  props: ['category'],
+  data() {
+    return {
+      show: false,
+      category_name: ''
+    }
+  },
+  methods: {
+    showInput() { // input内にカテゴリー名を反映
+      this.category_name = this.category.name
+      // カテゴリー名反映と同時に自動でフォーカスされる
+      this.show = true
+      Vue.nextTick(() => {
+        this.focusInput()
+      })
+    },
+    // focusInputメソッドはshowInputメソッドで実行
+    focusInput() {
+      this.$refs.input.focus()
+    },
+    updateName() {
+      this.show = false
+      // カテゴリー名変更を親コンポーネントに伝えるため$emitを利用
+      this.$emit('category-name-updated', this.category_name, this.category.id)
+    }
+  },
+  template: `
+  <div class="font-bold"
+    @click="showInput"
+    v-if="!show">
+    {{ category.name }}
+  </div>
+  <div v-else>
+    <input
+      v-model="category_name"
+      @blur="updateName"
+      @keyup.enter="updateName"
+      ref="input"
+      >
+  </div>
+  `
+})
+
+// コンポーネント定義後に#appにマウント
+app.mount('#app')
 </script>
