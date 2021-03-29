@@ -17,12 +17,20 @@
         :key="index"
         style="min-width:400px"
         >
-        <div class="bg-gray-200 m-2 p-2 text-sm">
+        <div
+          class="bg-gray-200 m-2 p-2 text-sm"
+          draggable="true"
+          @dragstart.self="dragCategory(category)"
+          @dragover.prevent="dragOverCategory(category)"
+          >
           <div class="font-bold">{{ category.name }}</div>
           <div
             v-for="(task, index) in category.tasks"
             :key="index"
             class="m-2 bg-white p-2"
+            draggable="true"
+            @dragstart="dragTask(task)"
+            @dragover.prevent="dragOverTask(task)"
             >
             {{ task.name }}
           </div>
@@ -37,6 +45,9 @@
 const app = Vue.createApp ({
   data() {
     return {
+      task: '', // drag中のtask情報を一時保存するためのデータプロパティ
+      category: '', // drag中のcategory情報を一時保存するためのデータプロパティ
+      type: '', // taskとcategoryの識別のためのデータプロパティ
       categories: [
         {
           id: 1,
@@ -126,6 +137,42 @@ const app = Vue.createApp ({
         })
       })
       return categories;
+    }
+  },
+  methods: {
+    dragTask(task) {
+      this.task = task // データプロパティのtaskにdragしているtaskの情報を入れる
+      this.type = 'task'
+    },
+    dragCategory(category) {
+      this.category = category // データプロパティのtaskにdragしているcategoryの情報を入れる
+      this.type = 'category'
+    },
+    dragOverTask(overTask) {
+      if (overTask.id !== this.task.id && this.type === 'task') { // dragしている要素が別の要素の上にいる場合
+        let deleteIndex // 削除を行うIndex保存
+        let addIndex // 追加を行うINdex保存
+        this.tasks.map((task, index) => { if (task.id === this.task.id) deleteIndex = index })
+        this.tasks.map((task, index) => { if (task.id === overTask.id) addIndex = index })
+        this.tasks.splice(deleteIndex, 1)
+        this.task.category_id = overTask.category_id // 別カテゴリーへの移動
+        this.tasks.splice(addIndex, 0, this.task)
+      }
+    },
+    dragOverCategory(overCategory) {
+      if (overCategory.id !== this.category.id && this.type === 'category') { // dragしている要素が別の要素の上にいる場合
+        let deleteIndex // 削除を行うIndex保存
+        let addIndex // 追加を行うINdex保存
+        this.categories.map((category, index) => { if (category.id === this.category.id) deleteIndex = index })
+        this.categories.map((category, index) => { if (category.id === overCategory.id) addIndex = index })
+        this.categories.splice(deleteIndex, 1)
+        this.categories.splice(addIndex, 0, this.category)
+      } else {
+        if (this.task.category_id !== overCategory.id && this.type === 'task') { // 移動するタスクのcategory_idとdrag要素の下にあるカテゴリーのcategory_idが異なる場合
+          let tasks = this.tasks.filter(task => task.category_id === overCategory.id)
+          if (tasks.length === 0) this.task.category_id = overCategory.id
+        }
+      }
     }
   }
 }).mount('#app')
