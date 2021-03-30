@@ -40,6 +40,10 @@
             >
             {{ task.name }}
           </div>
+          <task-add
+            @task-added="taskAdd"
+            :category_id="category.id"
+          />
         </div>
       </div>
       <div style="min-width:400px">
@@ -228,6 +232,13 @@ const app = Vue.createApp ({
     categoryNameUpdate(category_name, category_id) {
       let update_category = this.categories.find(cat => cat.id === category_id)
       update_category.name = category_name
+    },
+    taskAdd(task_name, category_id) {
+      this.tasks.push({
+        id: Date.now(),
+        category_id,
+        name: task_name
+      })
     }
   }
 })
@@ -275,6 +286,73 @@ app.component('category-name-update', {
       >
   </div>
   `
+})
+
+// task追加のコンポーネント定義
+app.component('task-add', {
+  props: [
+    'category_id'
+  ],
+  data() {
+    return {
+      show: false,
+      task_name: ''
+    }
+  },
+  methods: {
+    showInput() {
+      this.show = true
+      Vue.nextTick(() => {
+        this.focusInput()
+      })
+    },
+    focusInput() {
+      this.$refs.input.focus()
+    },
+    closeInput() {
+      this.show = false
+      this.task_name = ''
+    },
+    addTask() {
+      if (this.task_name != '') {
+        this.$emit('TaskAdded', this.task_name, this.category_id)
+        this.show = false
+        this.task_name = ''
+      }
+    }
+  },
+  template: `
+  <div
+    class="flex mx-2 hover:bg-gray-300 rounded-lg"
+    @click="showInput"
+    v-if="!show"
+    >
+    <span class="p-2">タスクを追加</span>
+  </div>
+  <div v-else class="mx-2">
+    <div>
+      <input
+        type="text"
+        class="w-full p-2"
+        placeholder="新しいタスク名を入力してください"
+        v-model="task_name"
+        ref="input"
+      >
+    </div>
+    <div class="flex m-2">
+      <button
+        class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-lg mr-2 font-bold text-xs"
+        @click="addTask"
+      >追加
+      </button>
+      <button
+        class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-lg font-bold text-xs"
+        @click="closeInput"
+      >キャンセル
+      </button>
+    </div>
+  </div>
+  `,
 })
 
 // コンポーネント定義後に#appにマウント
